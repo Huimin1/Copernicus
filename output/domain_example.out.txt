@@ -1,0 +1,2 @@
+Node 0: Using process grid (1,1,1)
+AMPS Error: Can't open the distribution file manning.pfb.dist for reading

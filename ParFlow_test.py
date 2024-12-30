@@ -43,13 +43,13 @@ domain_example.ComputationalGrid.Lower.X = 0.0
 domain_example.ComputationalGrid.Lower.Y = 0.0
 domain_example.ComputationalGrid.Lower.Z = 0.0
 
-domain_example.ComputationalGrid.DX      = 10.0
-domain_example.ComputationalGrid.DY      = 10.0
-domain_example.ComputationalGrid.DZ      = 1.0
+domain_example.ComputationalGrid.DX      = 20.0
+domain_example.ComputationalGrid.DY      = 20.0
+domain_example.ComputationalGrid.DZ      = 25.0
 
-domain_example.ComputationalGrid.NX      = 20
-domain_example.ComputationalGrid.NY      = 15
-domain_example.ComputationalGrid.NZ      = 10
+domain_example.ComputationalGrid.NX      = 200
+domain_example.ComputationalGrid.NY      = 200
+domain_example.ComputationalGrid.NZ      = 9
 
 #-----------------------------------------------------------------------------
 # The Names of the GeomInputs
@@ -69,9 +69,9 @@ domain_example.Geom.domain.Lower.X = 0.0
 domain_example.Geom.domain.Lower.Y = 0.0
 domain_example.Geom.domain.Lower.Z = 0.0
 
-domain_example.Geom.domain.Upper.X = 200.0
-domain_example.Geom.domain.Upper.Y = 150.0
-domain_example.Geom.domain.Upper.Z = 10.0
+domain_example.Geom.domain.Upper.X = 4000.0
+domain_example.Geom.domain.Upper.Y = 4000.0
+domain_example.Geom.domain.Upper.Z = 225.0
 
 domain_example.Geom.domain.Patches = 'x_lower x_upper y_lower y_upper z_lower z_upper'
 
@@ -82,21 +82,20 @@ domain_example.Geom.domain.Patches = 'x_lower x_upper y_lower y_upper z_lower z_
 domain_example.Solver.Nonlinear.VariableDz = True
 domain_example.dzScale.GeomNames           = 'domain'
 domain_example.dzScale.Type                = 'nzList'
-domain_example.dzScale.nzListNumber        = 10
+domain_example.dzScale.nzListNumber        = 9
 
 # cells start at the bottom (0) and moves up to the top
 # domain is 49 m thick, root zone is down to 4 cells
 # so the root zone is 2 m thick
-domain_example.Cell._0.dzScale.Value  = 10.0   #10* 1.0 = 10  m  layer
-domain_example.Cell._1.dzScale.Value  = 10.0
-domain_example.Cell._2.dzScale.Value  = 10.0
-domain_example.Cell._3.dzScale.Value  = 10.0
-domain_example.Cell._4.dzScale.Value  = 5.0
-domain_example.Cell._5.dzScale.Value  = 1.0
-domain_example.Cell._6.dzScale.Value  = 1.0
-domain_example.Cell._7.dzScale.Value  = 0.6   #0.6* 1.0 = 0.6  60 cm 3rd layer
-domain_example.Cell._8.dzScale.Value  = 0.3   #0.3* 1.0 = 0.3  30 cm 2nd layer
-domain_example.Cell._9.dzScale.Value  = 0.1   #0.1* 1.0 = 0.1  10 cm top layer
+domain_example.Cell._0.dzScale.Value  = 5.0
+domain_example.Cell._1.dzScale.Value  = 2.8
+domain_example.Cell._2.dzScale.Value  = 0.8
+domain_example.Cell._3.dzScale.Value  = 0.32
+domain_example.Cell._4.dzScale.Value  = 0.04
+domain_example.Cell._5.dzScale.Value  = 0.028
+domain_example.Cell._6.dzScale.Value  = 0.006
+domain_example.Cell._7.dzScale.Value  = 0.004
+domain_example.Cell._8.dzScale.Value  = 0.002
 
 #-----------------------------------------------------------------------------
 # Perm
@@ -253,9 +252,15 @@ domain_example.TopoSlopesY.Geom.domain.Value = 0.0
 #---------------------------------------------------------
 # Mannings coefficient
 #---------------------------------------------------------
-domain_example.Mannings.Type                 = 'Constant'
+domain_example.Mannings.Type                 = 'PFBFile'
 domain_example.Mannings.GeomNames            = 'domain'
-domain_example.Mannings.Geom.domain.Value    = 2.e-6
+# domain_example.Mannings.Geom.domain.Value    = 2.e-6
+domain_example.Mannings.FileName             = 'manning.pfb'
+
+#---------------------------------------------------
+# Distribute the input files
+#---------------------------------------------------
+domain_example.dist('manning.pfb')
 
 #-----------------------------------------------------------------------------
 # Phase sources:
@@ -328,10 +333,17 @@ domain_example.Solver.CLM.SingleFile      = True
 #---------------------------------------------------
 domain_example.ICPressure.Type                 = 'HydroStaticPatch'
 domain_example.ICPressure.GeomNames            = 'domain'
-domain_example.Geom.domain.ICPressure.Value    = -2.00
+domain_example.Geom.domain.ICPressure.Value    = -1.00
 domain_example.Geom.domain.ICPressure.RefGeom  = 'domain'
 domain_example.Geom.domain.ICPressure.RefPatch = 'z_upper'
 # This next cell sets the directory where ParFlow is installed and initiates a ParFlow run based on the keys defined above. Don't worry if parts of this (or all of it) seems intimidating or confusing; it takes time and practice to get used to anything new!
+
+#---------------------------------------------------
+# Copy the input file, this is a necessary step to ensure that the input file is copied to the output directory
+#---------------------------------------------------
+# shutil.copy('manning.pfb', 'output/manning.pfb')
+
+
 
 #-----------------------------------------------------------------------------
 # Run ParFlow
