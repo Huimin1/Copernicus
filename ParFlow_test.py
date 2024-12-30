@@ -21,6 +21,16 @@ from parflow import Run
 import shutil
 from parflow.tools.fs import mkdir, cp, chdir, get_absolute_path, rm, exists
 
+
+# Set the base directory
+base = os.path.join(os.getcwd(), "output")
+mkdir(base)
+print(f"base: {base}")
+
+# Copy the input file, this is a necessary step to ensure that the input file is copied to the output directory
+shutil.copy('manning.pfb', 'output/manning.pfb')
+
+
 # Set our Run Name
 domain_example = Run("domain_example")
 
@@ -47,7 +57,7 @@ domain_example.ComputationalGrid.DX      = 20.0
 domain_example.ComputationalGrid.DY      = 20.0
 domain_example.ComputationalGrid.DZ      = 25.0
 
-domain_example.ComputationalGrid.NX      = 200
+domain_example.ComputationalGrid.NX      = 150
 domain_example.ComputationalGrid.NY      = 200
 domain_example.ComputationalGrid.NZ      = 9
 
@@ -69,7 +79,7 @@ domain_example.Geom.domain.Lower.X = 0.0
 domain_example.Geom.domain.Lower.Y = 0.0
 domain_example.Geom.domain.Lower.Z = 0.0
 
-domain_example.Geom.domain.Upper.X = 4000.0
+domain_example.Geom.domain.Upper.X = 3000.0
 domain_example.Geom.domain.Upper.Y = 4000.0
 domain_example.Geom.domain.Upper.Z = 225.0
 
@@ -85,8 +95,8 @@ domain_example.dzScale.Type                = 'nzList'
 domain_example.dzScale.nzListNumber        = 9
 
 # cells start at the bottom (0) and moves up to the top
-# domain is 49 m thick, root zone is down to 4 cells
-# so the root zone is 2 m thick
+# domain is 225 m thick, root zone is down to x cells
+# so the root zone is f(x) m thick
 domain_example.Cell._0.dzScale.Value  = 5.0
 domain_example.Cell._1.dzScale.Value  = 2.8
 domain_example.Cell._2.dzScale.Value  = 0.8
@@ -235,6 +245,9 @@ domain_example.Patch.z_upper.BCPressure.Type          = 'OverlandFlow'
 domain_example.Patch.z_upper.BCPressure.Cycle         = 'constant'
 domain_example.Patch.z_upper.BCPressure.alltime.Value = -0.01
 
+# domain_example.Solver.EvapTransFile                          = True
+# domain_example.Solver.EvapTrans.FileName                     = 'manning.pfb'
+
 #---------------------------------------------------------
 # Topo slopes in x-direction
 #---------------------------------------------------------
@@ -252,15 +265,20 @@ domain_example.TopoSlopesY.Geom.domain.Value = 0.0
 #---------------------------------------------------------
 # Mannings coefficient
 #---------------------------------------------------------
+# domain_example.Mannings.Type                 = 'Constant'
 domain_example.Mannings.Type                 = 'PFBFile'
 domain_example.Mannings.GeomNames            = 'domain'
 # domain_example.Mannings.Geom.domain.Value    = 2.e-6
-domain_example.Mannings.FileName             = 'manning.pfb'
+# domain_example.Mannings.FileName             = 'manning.pfb'
+domain_example.Mannings.FileName = os.path.join(base, 'manning.pfb')
+
 
 #---------------------------------------------------
 # Distribute the input files
+# # Update the ParFlow configuration to point to the .pfb.dist file in the output folder:
 #---------------------------------------------------
-domain_example.dist('manning.pfb')
+# domain_example.dist('manning.pfb')
+domain_example.dist(os.path.join(base, 'manning.pfb'))
 
 #-----------------------------------------------------------------------------
 # Phase sources:
@@ -327,7 +345,6 @@ domain_example.Solver.CLM.WriteLastRST    = True
 domain_example.Solver.CLM.DailyRST        = False
 domain_example.Solver.CLM.SingleFile      = True
 
-
 #---------------------------------------------------
 # Initial conditions: water pressure
 #---------------------------------------------------
@@ -336,21 +353,19 @@ domain_example.ICPressure.GeomNames            = 'domain'
 domain_example.Geom.domain.ICPressure.Value    = -1.00
 domain_example.Geom.domain.ICPressure.RefGeom  = 'domain'
 domain_example.Geom.domain.ICPressure.RefPatch = 'z_upper'
-# This next cell sets the directory where ParFlow is installed and initiates a ParFlow run based on the keys defined above. Don't worry if parts of this (or all of it) seems intimidating or confusing; it takes time and practice to get used to anything new!
+# This next cell sets the directory where ParFlow is installed and initiates a ParFlow run based on the keys defined above.
 
 #---------------------------------------------------
 # Copy the input file, this is a necessary step to ensure that the input file is copied to the output directory
 #---------------------------------------------------
 # shutil.copy('manning.pfb', 'output/manning.pfb')
 
-
-
 #-----------------------------------------------------------------------------
 # Run ParFlow
 #-----------------------------------------------------------------------------
-base = os.path.join(os.getcwd(), "output")
-mkdir(base)
-print(f"base: {base}")
+# base = os.path.join(os.getcwd(), "output")
+# mkdir(base)
+# print(f"base: {base}")
 domain_example.run(working_directory=base)
 
 # %%

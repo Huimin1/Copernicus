@@ -66,7 +66,7 @@ ComputationalGrid.Lower.Z
 20
 ComputationalGrid.NX
 3
-200
+150
 20
 ComputationalGrid.NY
 3
@@ -202,7 +202,7 @@ Geom.domain.SpecificStorage.Value
 19
 Geom.domain.Upper.X
 6
-4000.0
+3000.0
 19
 Geom.domain.Upper.Y
 6
@@ -241,8 +241,8 @@ KnownSolution
 NoKnownSolution
 17
 Mannings.FileName
-11
-manning.pfb
+45
+/home/whm36/WHM/Copernicus/output/manning.pfb
 18
 Mannings.GeomNames
 6
