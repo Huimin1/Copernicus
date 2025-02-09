@@ -321,7 +321,6 @@ domain_example.Solver.PrintMannings            = write_pfb
 domain_example.Solver.PrintSubsurfData         = write_pfb
 domain_example.Solver.PrintPressure            = write_pfb
 domain_example.Solver.PrintSaturation          = write_pfb
-domain_example.Solver.PrintCLM                 = write_pfb
 domain_example.Solver.PrintMask                = write_pfb
 domain_example.Solver.PrintSpecificStorage     = write_pfb
 domain_example.Solver.PrintEvapTrans           = write_pfb
@@ -331,19 +330,38 @@ domain_example.Solver.PrintVelocities          = True
 #---------------------------------------------------
 # LSM / CLM options
 #---------------------------------------------------
+# Forcing files
+domain_example.Solver.LSM                 = 'CLM'
+domain_example.Solver.CLM.IstepStart      = 8760
+domain_example.Solver.CLM.MetForcing      = '3D'
+domain_example.Solver.CLM.MetFileName     = 'FORCING_example'
+domain_example.Solver.CLM.MetFilePath     = f'../g100_scratch/userexternal/rsandova/FORCINGS/{year_to_simulate}/pfb_format/'
+domain_example.Solver.CLM.MetFileNT       = 24
 
-# Writing output options for CLM
-# no native CLM logs
+# Set CLM Plant Water Use Parameters/ Physical properties
+domain_example.Solver.CLM.WriteLogs       = False
+domain_example.Solver.CLM.WriteLastRST    = True
+# Set CLM Plant Water Use Parameters
+# domain_example.Solver.CLM.EvapBeta       = 'Linear'
+# domain_example.Solver.CLM.VegWaterStress = 'Saturation'
+# domain_example.Solver.CLM.WiltingPoint   = 0.2
+# domain_example.Solver.CLM.FieldCapacity  = 1.00
+domain_example.Solver.CLM.IrrigationType = 'none'
+domain_example.Solver.CLM.ResSat          = 0.01
+domain_example.Solver.CLM.RootZoneNZ      = 5
+domain_example.Solver.CLM.SoiLayer        = 5
+
+# Writing output options for CLM, no SILO, no ative CLM logs
+domain_example.Solver.PrintCLM            = True
 domain_example.Solver.PrintLSMSink        = False
 domain_example.Solver.CLM.CLMDumpInterval = 10
 domain_example.Solver.CLM.CLMFileDir      = 'output/'
 domain_example.Solver.CLM.BinaryOutDir    = False
 domain_example.Solver.CLM.IstepStart      = 1
 domain_example.Solver.WriteCLMBinary      = False
-domain_example.Solver.CLM.WriteLogs       = False
-domain_example.Solver.CLM.WriteLastRST    = True
 domain_example.Solver.CLM.DailyRST        = False
 domain_example.Solver.CLM.SingleFile      = True
+
 
 #---------------------------------------------------
 # Initial conditions: water pressure
