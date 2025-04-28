@@ -1,4 +1,6 @@
-This repository is used for the project of the Copernicus class
+This repository is used to store the files for the presentation of the Copernicus class. The files can be devided into 2 parts, one part for the Po Plain model, the other part for the small box model.
+
+'output' folder contains the ouput files from the box domain model
 
 'copernicus.ipynb' downloads the Sentinel data for estimating Manning's roughness coefficients
 The atmospheric forcings for the Po Plain model is very large, it cannot be uploaded to the repository, as well as my other repositories. They are saved in my CFDHub account, a folder named 'huiminw' in /global-scratch/bulk_pool
