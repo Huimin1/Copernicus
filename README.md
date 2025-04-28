@@ -1,4 +1,4 @@
-This repository is used to store the files for the presentation of the Copernicus class. The files can be devided into 2 parts, one part for the Po Plain model, the other part for the small box model.
+This repository is used to store the files for the presentation of the Copernicus course. The files can be devided into 2 parts, one part for the Po Plain model, the other part for the small box model.
 
 For the box domain model: 
 
