@@ -2,9 +2,9 @@ This repository is used to store the files for the presentation of the Copernicu
 
 For the box domain model: 
 
-    'copernicus.ipynb' downloads the Sentinel data for estimating Manning's roughness coefficients\
+    'copernicus.ipynb' downloads the Sentinel data for estimating Manning's roughness coefficients
     
-    'manning.pfb' is the processed Manning's coefficients, the .pfb format is used in ParFlow model\
+    'manning.pfb' is the processed Manning's coefficients, the .pfb format is used in ParFlow model
     
     'ParFlow_test.py' runs a small box model for testing the heterogeneous Manning's roughness coefficient
     
@@ -15,7 +15,7 @@ For the box domain model:
     
 For the Po Plain model:
 
-    The atmospheric forcings for the Po Plain model is very large, it cannot be uploaded to the repository, as well as my other repositories. They are saved in my CFDHub account, a folder named 'huiminw' in /global-scratch/bulk_pool
+    The atmospheric forcings of the Po Plain model is very large, it cannot be uploaded to the repository, as well as my other repositories. The forcings are saved in my CFDHub account, a folder named 'huiminw' in /global-scratch/bulk_pool. The output folder is large as well, it's saved in my private repository.  
     
     '0_clm_2023.py' shows the Po Plain model with the atmospheric forcings of the year 2023
     
