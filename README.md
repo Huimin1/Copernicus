@@ -2,9 +2,13 @@ This repository is used to store the files for the presentation of the Copernicu
 
 For the box domain model: 
     'copernicus.ipynb' downloads the Sentinel data for estimating Manning's roughness coefficients\
+    
     'manning.pfb' is the processed Manning's coefficients, the .pfb format is used in ParFlow model\
+    
     'ParFlow_test.py' runs a small box model for testing the heterogeneous Manning's roughness coefficient
+    
     'output' folder contains the ouput files from the box domain model
+    
     'plot_outputs.ipynb' plots and analyzes the outputs from the small box model
     
 For the Po Plain model:
